@@ -46,7 +46,7 @@ class TweetGenerator:
         allGenData = {'initialStates':self.initialStates,
                         'markovDictionary':self.markovDictionary,
                         'rawTweets':self.rawTweets}
-        self.saveJSON(allGenData, fileName)
+        self.saveJSON(allGenData, fileName + "Generator")
 
     def generateTweet(self):
         word = self.initialStates[randint(0, len(self.initialStates) - 1)]
@@ -116,8 +116,8 @@ class TrumpTweetGenerator(TweetGenerator):
         self.saveJSON(allGenData, fileName)
 
     def generateTrumpTweet(self):
-        finalTweet = None
-        while finalTweet == None or len(finalTweet) > 144 or len(finalTweet) < 35:
+        finalTweet = []
+        while finalTweet == [] or len(finalTweet) > 144 or len(finalTweet) < 35:
             finalTweet = []
             for _ in range(randint(1, 3)):
                 finalTweet.append(self.generateTweet())
@@ -125,4 +125,5 @@ class TrumpTweetGenerator(TweetGenerator):
                 finalTweet.append(self.theBestWords[randint(0, len(self.theBestWords) - 1)])
             if randint(0, 1):
                 finalTweet.append(self.theBestHashtags[randint(0, len(self.theBestHashtags) - 1)])
-        return " ".join(finalTweet)
+            finalTweet = " ".join(finalTweet)
+        return finalTweet
